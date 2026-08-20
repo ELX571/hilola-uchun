@@ -1,0 +1,866 @@
+body, html { 
+    margin: 0; 
+    padding: 0; 
+    background-color: #05000a; 
+    font-family: 'Poppins', sans-serif; 
+    overflow-x: hidden;
+}
+
+#canvas-container { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    z-index: -1; 
+}
+
+#ui-layer { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100vh; 
+    z-index: 100; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: opacity 1.5s ease; 
+    background: rgba(0,0,0,0.7); 
+}
+
+.glass-card { 
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(15px); 
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    padding: 50px; 
+    border-radius: 30px; 
+    text-align: center; 
+    color: white; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
+    min-width: 400px;
+}
+
+.grand-title { 
+    font-size: 3.5rem; 
+    color: #ff9a9e; 
+    font-family: 'Dancing Script', cursive;
+    text-shadow: 0 0 20px rgba(255, 154, 158, 0.8);
+    margin-bottom: 30px;
+}
+.animate-pop-in {
+    animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.question-text { 
+    font-size: 1.5rem; 
+    margin-bottom: 30px; 
+    color: #e0e0e0;
+}
+.animate-fade-in {
+    animation: fadeIn 1s ease-in forwards;
+}
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+
+button { 
+    padding: 15px 40px; 
+    font-size: 1.2rem; 
+    font-weight: 600;
+    border-radius: 50px; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+    border: none;
+}
+.btn-yes {
+    background: linear-gradient(45deg, #ff6b81, #ff4757); 
+    color: white; 
+    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.4); 
+}
+.btn-yes:hover { 
+    transform: scale(1.1); 
+    box-shadow: 0 15px 25px rgba(255, 71, 87, 0.6); 
+}
+.btn-no {
+    background: rgba(255, 255, 255, 0.1); 
+    color: white; 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative; 
+}
+.btn-no:hover {
+    background: rgba(255, 255, 255, 0.2); 
+}
+
+/* PUZZLE / PARCHALANISH EFFEKTI CSS */
+#puzzle-container {
+    position: fixed; 
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    perspective: 1500px; 
+    transition: opacity 1s ease;
+}
+.puzzle-piece {
+    position: absolute;
+    background-image: url('khilola.png');
+    background-repeat: no-repeat;
+    transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Scroll qismi */
+#main-content { position: relative; z-index: 10; width: 100%; }
+.hero-spacer { height: 100vh; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 50px; }
+#scroll-indicator { color: white; text-align: center; font-size: 1.2rem; opacity: 0; transition: opacity 2s ease; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+#scroll-indicator span { font-size: 4rem; display: block; }
+.bounce { animation: bounce 2s infinite; }
+@keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-15px); } 60% { transform: translateY(-7px); } }
+
+.gallery-section, .wishes-section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
+.section-title { font-family: 'Dancing Script', cursive; color: #ffb6c1; font-size: 3.5rem; text-align: center; margin-bottom: 50px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+/* INSTAGRAM POST STYLES */
+.instagram-post { max-width: 450px; margin: 0 auto; background: rgba(20, 10, 25, 0.6); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+.insta-header { display: flex; align-items: center; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.insta-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; margin-right: 12px; border: 2px solid #ff4757; padding: 2px; }
+.insta-user-info { display: flex; flex-direction: column; }
+.insta-username { font-weight: 600; color: #fff; font-size: 1rem; }
+.insta-location { font-size: 0.8rem; color: #ffb6c1; }
+
+.insta-carousel { position: relative; width: 100%; aspect-ratio: 4/5; background: #05000a; }
+.insta-slides { width: 100%; height: 100%; position: relative; }
+.insta-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.3s ease; }
+.insta-slide.active { opacity: 1; z-index: 2; }
+
+.insta-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.2); backdrop-filter: blur(5px); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: 0.3s; }
+.insta-nav:hover { background: rgba(255,255,255,0.4); }
+.insta-nav.left { left: 10px; }
+.insta-nav.right { right: 10px; }
+
+.insta-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; gap: 6px; }
+.dot { width: 7px; height: 7px; background: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; transition: 0.3s; }
+.dot.active { background: #ff4757; width: 20px; border-radius: 10px; }
+
+.insta-caption-area { padding: 15px; color: #f0f0f0; text-align: left; }
+.insta-actions { display: flex; gap: 15px; font-size: 24px; margin-bottom: 10px; }
+.icon { cursor: pointer; transition: transform 0.2s; }
+.icon:hover { transform: scale(1.2); }
+.bookmark { margin-left: auto; }
+.likes { margin: 0 0 8px 0; font-size: 0.95rem; }
+.insta-caption { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+.insta-caption strong { color: #fff; margin-right: 5px; }
+.big-card { max-width: 800px; margin: 0 auto; background: rgba(255, 105, 180, 0.1); border: 1px solid rgba(255, 105, 180, 0.3); }
+.wish-title { font-family: 'Dancing Script', cursive; color: #ff9a9e; font-size: 3rem; margin-bottom: 20px; }
+.wish-text { font-size: 1.2rem; line-height: 1.8; color: #f8f8f8; }
+.wish-signature { margin-top: 30px; font-size: 1.8rem; color: #ffb6c1; font-family: 'Dancing Script', cursive; }
+footer { text-align: center; padding: 30px; color: #aaa; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
+
+/* XAT QOG'OZI VA AXLAT QUTISI ANIMATSIYASI */
+.wishes-section { overflow: hidden; } /* Ekrandan chiqib ketmasligi uchun */
+
+.letter-wrapper {
+    position: relative;
+    perspective: 1500px;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 50px;
+}
+
+.envelope {
+    width: 500px;
+    height: 320px;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    color: #d6336c;
+    position: absolute;
+    z-index: 5;
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    border: 2px solid rgba(255,255,255,0.6);
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+
+.envelope::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-top: 160px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px 15px 0 0;
+    z-index: 6;
+}
+
+.trash-can {
+    position: absolute;
+    left: 50%;
+    margin-left: 100px;
+    bottom: 50px;
+    font-size: 7rem;
+    opacity: 0;
+    transform: translateY(100px) scale(0.5);
+    transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 6;
+}
+
+.letter {
+    position: relative;
+    transform: translateY(150px) scale(0.4) rotateX(-45deg);
+    opacity: 0;
+    transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: bottom center;
+    z-index: 10;
+    pointer-events: none; /* Hover faqat wrapperga ta'sir qilishi uchun */
+    width: 100%;
+}
+
+/* Hover & Click (telefonlar uchun) holatlari */
+.letter-wrapper:hover .envelope,
+.letter-wrapper.is-open .envelope {
+    transform: translate(150px, 150px) rotate(540deg) scale(0.1);
+    opacity: 0;
+}
+
+.letter-wrapper:hover .trash-can,
+.letter-wrapper.is-open .trash-can {
+    opacity: 1;
+    transform: translateY(-20px) scale(1.2);
+}
+
+.letter-wrapper:hover .letter,
+.letter-wrapper.is-open .letter {
+    transform: translateY(0) scale(1) rotateX(0deg);
+    opacity: 1;
+    pointer-events: auto; /* Maktub ichidagi narsalarni bosish imkoniyati */
+}
+
+/* PANDALAR REAKTSIYASI */
+.panda-reaction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.panda-reaction img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+.panda-reaction img:hover {
+    transform: scale(1.3) rotate(5deg);
+    border-color: #ff9a9e;
+    z-index: 5;
+}
+
+.middle-panda {
+    width: 90px !important;
+    height: 90px !important;
+    border-color: #ff9a9e !important;
+    z-index: 2;
+    transform: translateY(5px);
+}
+
+/* KATTA PANDA TUGMASI */
+.final-surprise-section {
+    padding: 50px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.panda-button-container {
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.panda-button-container:hover {
+    transform: scale(1.05);
+}
+
+.panda-large-btn {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 20%;
+    border: 5px solid #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 20px rgba(255, 105, 180, 0.4);
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.panda-button-container:hover .panda-large-btn {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 40px rgba(255, 105, 180, 0.8);
+}
+
+.colorful-click-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientColors 3s ease infinite, bounceText 2s infinite;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes gradientColors {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes bounceText {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* CHEK (RECEIPT) MODAL (Printer Animation) */
+.receipt-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+    backdrop-filter: blur(5px);
+}
+.receipt-modal.active { opacity: 1; pointer-events: auto; }
+
+.printer-scene {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    margin-top: -100px;
+}
+
+.printer-slot {
+    width: 360px; height: 35px;
+    background: linear-gradient(to bottom, #d6a848, #f5d78a, #c19130);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15), inset 0 2px 5px rgba(255,255,255,0.8);
+    z-index: 10;
+    position: relative;
+    display: flex; justify-content: center; align-items: flex-end;
+    padding-bottom: 5px;
+}
+.slot-opening {
+    width: 330px; height: 6px;
+    background: #222;
+    border-radius: 3px;
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.8);
+}
+
+.receipt-mask {
+    width: 380px;
+    height: 550px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: 5px; /* so shadow from paper isn't cut off at the very top under slot */
+}
+
+.receipt-paper {
+    width: 340px;
+    background: linear-gradient(to bottom, #fdfdfd, #f4f4f4);
+    padding: 30px 25px 40px 25px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    transform: translateY(-110%);
+    transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    position: absolute;
+    top: 0;
+    cursor: default;
+}
+
+/* Jagged Sawtooth Bottom Edge */
+.receipt-paper::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(45deg, #f4f4f4 25%, transparent 25%), 
+                linear-gradient(-45deg, #f4f4f4 25%, transparent 25%);
+    background-size: 16px 16px;
+    background-position: 0 0;
+}
+
+.receipt-modal.active .receipt-paper {
+    transform: translateY(0);
+}
+
+.receipt-top-content { margin-bottom: 25px; text-align: left; }
+.blue-text { color: #5a8bd4; margin: 0; font-size: 1.1rem; font-family: 'Poppins', sans-serif; font-weight: 700; letter-spacing: 1px;}
+.grey-text { color: #888; margin: 3px 0 0 0; font-size: 0.75rem; letter-spacing: 1px; font-family: 'Poppins', sans-serif; text-transform: uppercase;}
+
+.receipt-amount { font-size: 2.5rem; margin: 10px 0 5px 0; color: #222; font-family: 'Poppins', sans-serif; font-weight: 700;}
+.receipt-date { font-size: 0.65rem; color: #999; margin: 0 0 20px 0; font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 1px;}
+
+.receipt-divider { border-bottom: 2px dashed #ccc; margin: 20px 0; }
+
+.receipt-item { display: flex; justify-content: space-between; margin: 10px 0; font-size: 0.85rem; font-weight: bold; color: #444;}
+.receipt-item span:first-child { flex: 1; text-align: left; padding-right: 15px; }
+.receipt-item span:last-child { text-align: right; }
+
+.subtotal, .tax { font-weight: normal; color: #777; font-size: 0.8rem; }
+.total { font-size: 1.1rem; color: #111; font-weight: 900; margin-top: 5px; }
+
+.receipt-footer-text { text-align: center; margin: 30px 0 15px 0; font-size: 0.85rem; letter-spacing: 1px; font-weight: bold; color: #555;}
+
+.barcode-container { text-align: center; }
+.barcode {
+    height: 40px;
+    width: 80%;
+    margin: 0 auto;
+    background: repeating-linear-gradient(
+        90deg,
+        #333,
+        #333 3px,
+        transparent 3px,
+        transparent 6px,
+        #333 6px,
+        #333 8px,
+        transparent 8px,
+        transparent 11px,
+        #333 11px,
+        #333 15px,
+        transparent 15px,
+        transparent 19px
+    );
+}
+.barcode-text { font-size: 0.65rem; color: #777; margin-top: 8px; letter-spacing: 2px; font-family: 'Poppins', sans-serif;}
+
+/* Chek tugmalari */
+.receipt-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.receipt-buttons button {
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    transition: transform 0.2s;
+}
+
+.btn-ha {
+    background: #4CAF50;
+    color: white;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+}
+
+.btn-yoq {
+    background: #f44336;
+    color: white;
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.4);
+}
+
+.receipt-buttons button:hover {
+    transform: scale(1.1);
+}
+
+
+/* CHIROYLI XAT VA PASTKI O'CHIRISH EKRANI */
+.beautiful-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+    opacity: 0; pointer-events: none; transition: opacity 0.5s;
+}
+.beautiful-modal.active { opacity: 1; pointer-events: auto; }
+
+.beautiful-envelope-wrapper {
+    position: relative;
+    width: 320px; height: 200px;
+    cursor: pointer;
+    perspective: 1200px;
+    transition: transform 0.5s;
+    margin-top: -100px; /* Sal teparoqda turishi uchun */
+}
+.beautiful-envelope-wrapper:hover {
+    transform: scale(1.05);
+}
+
+.b-envelope {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 3; transition: all 0.6s ease;
+    border: 2px solid rgba(255,255,255,0.6);
+}
+.b-envelope-text {
+    font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #d6336c; font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+}
+.b-envelope::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    border-left: 160px solid transparent; border-right: 160px solid transparent;
+    border-top: 100px solid rgba(255,255,255,0.5);
+    border-radius: 10px 10px 0 0;
+    z-index: 4; transform-origin: top; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.b-letter {
+    position: absolute; top: 10px; left: 20px; width: 280px; height: auto;
+    background: #fff; border-radius: 5px; padding: 30px 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    font-family: 'Poppins', sans-serif; font-size: 1.1rem; color: #333; text-align: center;
+    z-index: 2; transform: translateY(0); opacity: 0; transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Xat ochilganda animatsiya */
+.beautiful-envelope-wrapper.open .b-envelope::before {
+    transform: rotateX(180deg);
+}
+.beautiful-envelope-wrapper.open .b-letter {
+    transform: translateY(-130px); opacity: 1; z-index: 5;
+}
+
+/* Pastdagi o'chirish ekrani */
+.bottom-deletion-warning {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    width: 90%; max-width: 400px;
+    background: #ff4757; color: white; padding: 20px 25px;
+    border-radius: 15px; text-align: center; font-family: 'Courier New', monospace; font-weight: bold;
+    box-shadow: 0 10px 30px rgba(255, 71, 87, 0.5);
+    opacity: 0; transition: opacity 0.5s ease;
+    border: 3px solid #ff6b81;
+}
+.bottom-deletion-warning.visible { opacity: 1; }
+
+.bottom-deletion-warning span {
+    font-size: 1.5rem;
+    display: inline-block;
+    margin-left: 10px;
+    animation: blinkText 0.5s infinite alternate;
+}
+
+.bottom-progress-bar { 
+    width: 100%; height: 12px; background: rgba(255,255,255,0.3); 
+    margin-top: 15px; border-radius: 6px; overflow: hidden; 
+}
+.b-progress { 
+    width: 0%; height: 100%; background: #fff; 
+    box-shadow: 0 0 10px #fff;
+}
+
+/* ORQAGA TUGMASI */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 3000;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.back-btn:hover {
+    background: #fff;
+    color: #ff4757;
+    border-color: #fff;
+    transform: translateX(-5px);
+}
+
+/* Chek ekrani oq rangda bo'lgani uchun uning tugmasi to'qroq bo'lishi kerak */
+.receipt-modal .back-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(0, 0, 0, 0.7);
+}
+.receipt-modal .back-btn:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* PLASTIK KARTA DIZAYNI */
+.credit-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 1000px;
+}
+
+.credit-card {
+    width: 350px;
+    height: 220px;
+    background: linear-gradient(135deg, #1e1e1e, #3a3a3a);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.2);
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
+    transform: rotateX(20deg) rotateY(10deg);
+    transition: transform 0.5s ease;
+    border: 1px solid #555;
+}
+
+.credit-card:hover {
+    transform: rotateX(0deg) rotateY(0deg);
+}
+
+.card-chip {
+    width: 45px;
+    height: 35px;
+    background: linear-gradient(135deg, #e6c27a, #d4af37, #997a00);
+    border-radius: 5px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+    position: relative;
+}
+.card-chip::after {
+    content: ''; position: absolute; top: 10px; left: 0; width: 100%; height: 15px; border-top: 1px solid rgba(0,0,0,0.3); border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+.card-number {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px black;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-name span, .card-valid span {
+    font-size: 0.6rem;
+    color: #aaa;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+}
+
+.card-name p, .card-valid p {
+    margin: 5px 0 0 0;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 1px black;
+}
+
+.card-type {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #e6c27a;
+    text-shadow: 1px 1px 2px black;
+}
+
+.card-message {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    margin-top: 30px;
+    text-shadow: 0 5px 15px rgba(255,255,255,0.3);
+    animation: bounceText 2s infinite;
+}
+
+/* =========================================
+   TELEFONLAR UCHUN MOSLASHUVCHAN (RESPONSIVE) CSS
+========================================= */
+@media (max-width: 768px) {
+    /* Umumiy o'zgarishlar */
+    body {
+        overflow-x: hidden;
+    }
+    
+    .glass-card {
+        width: 90vw;
+        padding: 20px 15px;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.5rem; }
+    p { font-size: 1rem; }
+
+    /* Karusel qismi */
+    .insta-container {
+        width: 90vw;
+        height: 110vw; /* Kvadratga yaqin proporsiya */
+    }
+
+    /* 1-Xat konverti (Kattasi) va Axlat qutisi */
+    .envelope {
+        width: 300px;
+        height: 200px;
+        font-size: 2.2rem;
+    }
+    .envelope::before {
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-top: 100px solid rgba(255, 255, 255, 0.3);
+    }
+    .trash-can {
+        margin-left: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px) scale(0.5);
+        font-size: 5rem;
+    }
+    
+    .letter-wrapper:hover .envelope,
+    .letter-wrapper.is-open .envelope {
+        transform: translate(0px, 150px) rotate(540deg) scale(0.1);
+    }
+    .letter-wrapper:hover .trash-can,
+    .letter-wrapper.is-open .trash-can {
+        transform: translateX(-50%) translateY(20px) scale(1);
+    }
+    
+    .letter {
+        width: 95vw;
+        padding: 20px;
+    }
+    .wish-text {
+        font-size: 1.1rem;
+    }
+
+    /* Panda reaksiyalari */
+    .panda-reaction img {
+        width: 50px;
+        height: 50px;
+    }
+    .middle-panda {
+        width: 65px !important;
+        height: 65px !important;
+    }
+
+    /* Katta panda tugmasi */
+    .panda-large-btn {
+        width: 180px;
+        height: 180px;
+        border-width: 3px;
+    }
+    .colorful-click-text {
+        font-size: 1.8rem;
+    }
+
+    /* Chek (Receipt) Qismi */
+    .printer-slot {
+        width: 90vw;
+    }
+    .slot-opening {
+        width: 85vw;
+    }
+    .receipt-mask {
+        width: 100vw;
+    }
+    .receipt-paper {
+        width: 85vw;
+        padding: 20px 15px;
+    }
+    .receipt-amount {
+        font-size: 2rem;
+    }
+    .receipt-item {
+        font-size: 0.75rem;
+    }
+    .receipt-buttons button {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    /* Plastik Karta */
+    .credit-card {
+        width: 90vw;
+        height: auto;
+        min-height: 200px;
+        padding: 20px;
+        transform: rotateX(10deg) rotateY(5deg);
+    }
+    .card-number {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+    }
+    .card-name p, .card-valid p {
+        font-size: 0.95rem;
+    }
+    .card-type {
+        font-size: 1rem;
+        top: 20px; right: 20px;
+    }
+    .card-message {
+        font-size: 1.5rem;
+    }
+
+    /* Yirtiq xat / Jahl konverti */
+    .beautiful-envelope-wrapper {
+        transform: scale(0.85);
+        margin-top: -50px;
+    }
+    .beautiful-envelope-wrapper:hover {
+        transform: scale(0.9);
+    }
+    
+    .bottom-deletion-warning {
+        width: 95vw;
+        padding: 15px 10px;
+        font-size: 0.85rem;
+        bottom: 20px;
+    }
+    .bottom-deletion-warning span {
+        font-size: 1.2rem;
+    }
+}

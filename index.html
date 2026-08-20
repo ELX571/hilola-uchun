@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maxsus Syurpriz - Khilola uchun</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+    <script>
+      window.addEventListener("error", function(e) {
+        document.body.innerHTML += "<div style=\"position:fixed;top:0;left:0;z-index:9999;background:red;color:white;padding:20px;\">ERROR: " + e.message + " at " + e.filename + ":" + e.lineno + "</div>";
+      });
+      window.addEventListener("unhandledrejection", function(e) {
+        document.body.innerHTML += "<div style=\"position:fixed;top:50px;left:0;z-index:9999;background:orange;color:white;padding:20px;\">PROMISE ERROR: " + e.reason + "</div>";
+      });
+    </script>
+<body>
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- 3D Orqa fon -->
+    <div id="canvas-container"></div>
+
+    <!-- Boshlang'ich UI -->
+    <div id="ui-layer">
+        <div class="glass-card start-card">
+            <!-- Tantanali yozuv -->
+            <h1 class="grand-title" id="grand-title" style="display: none;">TAVALLUD AYYOMING BILAN! 🎉</h1>
+            
+            <!-- Savol va tugmalar -->
+            <div id="question-box" style="display: none;">
+                <p class="question-text">Syurprizni ko'rishni xohlaysizmi?</p>
+                <div class="button-group">
+                    <button id="btn-yes" class="btn-yes">Ha 💖</button>
+                    <button id="btn-no" class="btn-no">Yo'q 🙈</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rasmni parchalardan yig'ish effekti uchun -->
+    <div id="puzzle-container" style="display: none;"></div>
+
+    <!-- Asosiy Tarkib (Scroll qilinadigan qism) -->
+    <div id="main-content" style="display: none;">
+        
+        <div class="hero-spacer">
+            <!-- Bo'sh joy (Skroll qilib rasmni parchalash uchun kerak) -->
+        </div>
+
+        <section class="gallery-section">
+            <h2 class="section-title">Tanqidiy-Kulgili Xotiralar 😂</h2>
+            
+            <div class="instagram-post">
+                <div class="insta-header">
+                    <img src="khilola.png" class="insta-avatar" alt="Avatar">
+                    <div class="insta-user-info">
+                        <span class="insta-username">khilola_official_17</span>
+                        <span class="insta-location">O'zining shaxsiy koinotida ✨</span>
+                    </div>
+                </div>
+                
+                <div class="insta-carousel">
+                    <button class="insta-nav left" onclick="prevSlide()">&#10094;</button>
+                    
+                    <div class="insta-slides" onclick="nextSlide()" style="cursor: pointer;">
+                        <img src="pic1.png" class="insta-slide active" alt="Pic 1">
+                        <img src="pic2.png" class="insta-slide" alt="Pic 2">
+                        <img src="pic3.png" class="insta-slide" alt="Pic 3">
+                        <img src="pic4.png" class="insta-slide" alt="Pic 4">
+                        <img src="pic5.png" class="insta-slide" alt="Pic 5">
+                    </div>
+                    
+                    <button class="insta-nav right" onclick="nextSlide()">&#10095;</button>
+                    
+                    <div class="insta-dots">
+                        <span class="dot active" onclick="setSlide(0)"></span>
+                        <span class="dot" onclick="setSlide(1)"></span>
+                        <span class="dot" onclick="setSlide(2)"></span>
+                        <span class="dot" onclick="setSlide(3)"></span>
+                        <span class="dot" onclick="setSlide(4)"></span>
+                    </div>
+                </div>
+
+                <div class="insta-caption-area">
+                    <div class="insta-actions">
+                        <span class="icon">❤️</span>
+                        <span class="icon">💬</span>
+                        <span class="icon">🚀</span>
+                        <span class="icon bookmark">📌</span>
+                    </div>
+                    <p class="insta-caption" id="insta-caption-text">Jiddiy rasmga tushaman deb, ichida kulgisi qistab turgan holat. Qoshlar 10/10, lekin nigohlar "tezroq rasmga ol, bo'ynim og'rib ketdi" deyapti. 😅</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="wishes-section">
+            <div class="letter-wrapper" onmouseenter="this.classList.add('is-open')" onclick="this.classList.add('is-open')">
+                <div class="trash-can">🗑️</div>
+                <div class="envelope">
+                    Khilola uchun 💌
+                </div>
+                <div class="letter">
+                    <div class="glass-card big-card">
+                        <h2 class="wish-title">Aziz Khilola,</h2>
+                        <p class="wish-text">
+                            Seni 17 yoshing, umringning eng nozik va chiroyli bahori bilan chin dildan tabriklayman! 
+                            Sen o'zingning kulgilaring, samimiy diling va beg'ubor qalbing bilan atrofdagilarga nur ulashuvchi insonsan. <br><br>
+                            Hayoting xuddi shu orqangda aylanayotgan koinotdek cheksiz baxtlarga to'la, yulduzlardek yorqin va betakror bo'lsin. 
+                            Hech qachon yuzingdan tabassum, ko'zlaringdan quvonch arimasin. Barcha ezgu niyatlaring amalga oshib, doimo mehr va e'tibor og'ushida, eng baxtli insonlardan biri bo'lishingga tilakdoshman!
+                        </p>
+                        <p class="wish-signature">Tug'ilgan kuning bilan! 💖</p>
+                        
+                        <!-- Pandalar reaktsiyasi -->
+                        <div class="panda-reaction">
+                            <img src="panda1.png" alt="Panda reaction 1">
+                            <img src="panda2.png" alt="Panda reaction 2" class="middle-panda">
+                            <img src="panda3.png" alt="Panda reaction 3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-surprise-section">
+            <div class="panda-button-container" onclick="openReceipt()">
+                <img src="panda_btn.png" alt="Panda Button" class="panda-large-btn">
+                <h2 class="colorful-click-text">Meni bos! 👇</h2>
+            </div>
+        </section>
+
+        <!-- CHEK (RECEIPT) MODAL (Printer Animation) -->
+        <div id="receipt-modal" class="receipt-modal" onclick="closeReceipt(event)">
+            <button class="back-btn" onclick="closeReceiptExplicit()">⬅️ Orqaga</button>
+            <div class="printer-scene">
+                <!-- Tilla rangli printer tirqishi -->
+                <div class="printer-slot">
+                    <div class="slot-opening"></div>
+                </div>
+
+                <!-- Animatsiya uchun maska -->
+                <div class="receipt-mask">
+                    <div class="receipt-paper" id="receipt-paper">
+                        
+                        <div class="receipt-top-content">
+                            <h4 class="blue-text">ISMOILOWS DEV. AGENCY</h4>
+                            <h5 class="grey-text">UYQUSIZ TUNLAR UCHUN CHEK</h5>
+                        </div>
+                        
+                        <h1 class="receipt-amount">XIZMAT HAQQI</h1>
+                        <p class="receipt-date">KUNDUZI UHLAB, KESCHASI ISHLANDI</p>
+                        
+                        <div class="receipt-divider"></div>
+                        
+                        <div class="receipt-item">
+                            <span>1X Saytni kodlash (Uxlamay)</span>
+                            <span>Bebaho</span>
+                        </div>
+                        <div class="receipt-item">
+                            <span>1X Animatsiyalar (3D)</span>
+                            <span>Qimmat</span>
+                        </div>
+                        <div class="receipt-item">
+                            <span>1X Asab tolalari (Sarflangan)</span>
+                            <span>Milliard</span>
+                        </div>
+                        
+                        <div class="receipt-divider"></div>
+                        
+                        <div class="receipt-item total">
+                            <span>BU SAYTNI UXLAMAY QILDIM, XIZMAT HAQQIMNI BER ENDI!</span>
+                        </div>
+                        
+                        <div class="receipt-footer-text">Hozir to'laysizmi Hilolaxon?</div>
+                        
+                        <div class="receipt-buttons">
+                            <button class="btn-ha" onclick="showCardModal()">Ha</button>
+                            <button class="btn-yoq" onclick="showAngryLetter()">Yo'q</button>
+                        </div>
+                        
+                        <div class="barcode-container">
+                            <div class="barcode"></div>
+                            <p class="barcode-text">TXN-UYQUSIZLIK2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KARTA EKRANI -->
+        <div id="card-modal" class="beautiful-modal">
+            <button class="back-btn" onclick="closeCardModal()">⬅️ Orqaga</button>
+            <div class="credit-card-container">
+                <div class="credit-card">
+                    <div class="card-chip"></div>
+                    <div class="card-number">9860 0196 1938 4999</div>
+                    <div class="card-details">
+                        <div class="card-name">
+                            <span>CARDHOLDER</span>
+                            <p>ISMOILOV SAIDAZIMXON</p>
+                        </div>
+                        <div class="card-valid">
+                            <span>VALID THRU</span>
+                            <p>12/30</p>
+                        </div>
+                    </div>
+                    <div class="card-type">UZCARD</div>
+                </div>
+                <h3 class="card-message">Kutaman! 💸😎</h3>
+            </div>
+        </div>
+
+        <!-- YAQINDA O'CHIRILADI (BEAUTIFUL) MODAL -->
+        <div id="angry-letter-modal" class="beautiful-modal">
+            <button class="back-btn" onclick="closeAngryLetter(event)">⬅️ Orqaga</button>
+            <div class="beautiful-envelope-wrapper" onclick="openBeautifulLetter(this)">
+                <!-- Zarf -->
+                <div class="b-envelope">
+                    <div class="b-envelope-text">Maktub 💌</div>
+                </div>
+                
+                <!-- Ichidagi Xat -->
+                <div class="b-letter">
+                    <p>Aa ol mol, men o'zi bilardim seni qurumsoqligingni eeeee! 😂</p>
+                    <p>Essiz bo'ldi, bu saytni o'chiraman!</p>
+                </div>
+            </div>
+            
+            <!-- Pastdagi o'chirish ekrani (xat ochilganda ko'rinadi) -->
+            <div class="bottom-deletion-warning hidden" id="bottom-deletion-warning">
+                SAYT O'CHIRILMOQDA... <span id="bottom-time">30</span>
+                <div class="bottom-progress-bar">
+                    <div class="b-progress" id="b-progress"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Hurmat va ehtirom bilan <strong>ismoilows</strong> dan ✨ 2026</p>
+        </footer>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
