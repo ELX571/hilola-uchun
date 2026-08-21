@@ -7,7 +7,6 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 const uiLayer = document.getElementById('ui-layer');
 const btnYes = document.getElementById('btn-yes');
 const btnNo = document.getElementById('btn-no');
-const bgMusic = document.getElementById('bg-music');
 const mainContent = document.getElementById('main-content');
 
 // Boshlang'ich animatsiyalar
@@ -45,9 +44,6 @@ btnNo.addEventListener('click', () => {
         uiLayer.style.opacity = '0';
         setTimeout(() => { uiLayer.style.display = 'none'; }, 1500);
         
-        bgMusic.volume = 0.6;
-        // bgMusic.play() ni olib tashladik, o'rniga tugmani ko'rsatamiz
-        document.getElementById('music-control').style.display = 'block';
         
         setTimeout(() => {
             createPuzzleEffect();
@@ -462,19 +458,3 @@ window.closeCardModal = function() {
     document.getElementById('receipt-modal').classList.add('active'); // Chekni qayta ochib berish
 }
 
-// Musiqani boshqarish
-let isMusicPlaying = false;
-window.toggleMusic = function() {
-    const bgMusic = document.getElementById('bg-music');
-    const musicBtn = document.getElementById('music-control');
-    
-    if (isMusicPlaying) {
-        bgMusic.pause();
-        musicBtn.innerHTML = '🎵 Eshitish';
-        isMusicPlaying = false;
-    } else {
-        bgMusic.play();
-        musicBtn.innerHTML = '⏸️ To\'xtatish';
-        isMusicPlaying = true;
-    }
-};

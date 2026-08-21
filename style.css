@@ -908,34 +908,3 @@ footer { text-align: center; padding: 30px; color: #aaa; background: linear-grad
     }
 }
 
-/* MUSIQA TUGMASI */
-#music-control {
-    display: none;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 9999;
-    background: rgba(255, 63, 108, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 10px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(255, 63, 108, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease;
-    font-size: 1rem;
-}
-#music-control:hover {
-    transform: scale(1.05);
-    background: rgba(255, 63, 108, 1);
-}
-@media (max-width: 768px) {
-    #music-control {
-        top: 15px;
-        right: 15px;
-        padding: 8px 15px;
-        font-size: 0.9rem;
-    }
-}
