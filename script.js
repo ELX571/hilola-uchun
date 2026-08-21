@@ -41,17 +41,18 @@ btnNo.addEventListener('click', () => {
     btnYes.click(); 
 });
 
-btnYes.addEventListener('click', () => {
-    uiLayer.style.opacity = '0';
-    setTimeout(() => { uiLayer.style.display = 'none'; }, 1500);
-    
-    bgMusic.volume = 0.6;
-    bgMusic.play();
-    
-    setTimeout(() => {
-        createPuzzleEffect();
-    }, 500);
-});
+    btnYes.addEventListener('click', () => {
+        uiLayer.style.opacity = '0';
+        setTimeout(() => { uiLayer.style.display = 'none'; }, 1500);
+        
+        bgMusic.volume = 0.6;
+        // bgMusic.play() ni olib tashladik, o'rniga tugmani ko'rsatamiz
+        document.getElementById('music-control').style.display = 'block';
+        
+        setTimeout(() => {
+            createPuzzleEffect();
+        }, 500);
+    });
 
 // Rasmni parchalardan yig'ish
 let isAssembled = false;
@@ -460,3 +461,20 @@ window.closeCardModal = function() {
     document.getElementById('card-modal').classList.remove('active');
     document.getElementById('receipt-modal').classList.add('active'); // Chekni qayta ochib berish
 }
+
+// Musiqani boshqarish
+let isMusicPlaying = false;
+window.toggleMusic = function() {
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-control');
+    
+    if (isMusicPlaying) {
+        bgMusic.pause();
+        musicBtn.innerHTML = '🎵 Eshitish';
+        isMusicPlaying = false;
+    } else {
+        bgMusic.play();
+        musicBtn.innerHTML = '⏸️ To\'xtatish';
+        isMusicPlaying = true;
+    }
+};
