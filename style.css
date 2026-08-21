@@ -721,66 +721,103 @@ footer { text-align: center; padding: 30px; color: #aaa; background: linear-grad
 /* =========================================
    TELEFONLAR UCHUN MOSLASHUVCHAN (RESPONSIVE) CSS
 ========================================= */
+
+/* Barcha elementlar uchun qat'iy box-sizing (O'ta muhim, toshib ketmasligi uchun) */
+*, *::before, *::after {
+    box-sizing: border-box !important;
+}
+
 @media (max-width: 768px) {
-    /* Umumiy o'zgarishlar */
-    body {
-        overflow-x: hidden;
+    body, html {
+        overflow-x: hidden !important;
+        width: 100vw !important;
+        max-width: 100% !important;
+        margin: 0;
+        padding: 0;
     }
     
-    .glass-card {
-        width: 90vw;
-        padding: 20px 15px;
+    /* Asosiy cardlar qisqarmasligi va sig'ishi uchun */
+    .glass-card, .big-card {
+        width: 92vw !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 25px 15px !important;
+        margin: 0 auto !important;
     }
     
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.5rem; }
-    p { font-size: 1rem; }
+    h1, .hero-card h1 { font-size: 1.8rem !important; }
+    h2, .wish-title { font-size: 1.4rem !important; }
+    p, .wish-text, .question-text { font-size: 1rem !important; line-height: 1.5; }
+    
+    .button-group {
+        gap: 10px !important;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    button, .btn {
+        padding: 12px 25px !important;
+        font-size: 1rem !important;
+        width: auto;
+    }
 
     /* Karusel qismi */
+    .instagram-post {
+        width: 95vw !important;
+        max-width: 100% !important;
+        margin: 0 auto;
+    }
     .insta-container {
-        width: 90vw;
-        height: 110vw; /* Kvadratga yaqin proporsiya */
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 4/5;
+    }
+    .insta-slide {
+        object-fit: cover;
     }
 
-    /* 1-Xat konverti (Kattasi) va Axlat qutisi */
+    /* Konvert va Axlat qutisi */
     .envelope {
-        width: 300px;
-        height: 200px;
-        font-size: 2.2rem;
+        width: 80vw;
+        max-width: 300px;
+        height: 180px;
+        font-size: 1.8rem;
     }
     .envelope::before {
-        border-left: 150px solid transparent;
-        border-right: 150px solid transparent;
-        border-top: 100px solid rgba(255, 255, 255, 0.3);
+        border-left: 40vw solid transparent;
+        border-right: 40vw solid transparent;
+        border-top: 90px solid rgba(255, 255, 255, 0.3);
     }
     .trash-can {
         margin-left: 0;
         left: 50%;
         transform: translateX(-50%) translateY(100px) scale(0.5);
-        font-size: 5rem;
+        font-size: 4rem;
     }
     
     .letter-wrapper:hover .envelope,
     .letter-wrapper.is-open .envelope {
-        transform: translate(0px, 150px) rotate(540deg) scale(0.1);
-    }
-    .letter-wrapper:hover .trash-can,
-    .letter-wrapper.is-open .trash-can {
-        transform: translateX(-50%) translateY(20px) scale(1);
+        transform: translate(0px, 120px) rotate(540deg) scale(0.1);
     }
     
     .letter {
-        width: 95vw;
-        padding: 20px;
-    }
-    .wish-text {
-        font-size: 1.1rem;
+        width: 100% !important;
+        padding: 0 !important;
+        display: flex;
+        justify-content: center;
     }
 
     /* Panda reaksiyalari */
+    .panda-reaction {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        margin-top: 15px;
+    }
     .panda-reaction img {
-        width: 50px;
-        height: 50px;
+        width: 50px !important;
+        height: 50px !important;
     }
     .middle-panda {
         width: 65px !important;
@@ -789,122 +826,57 @@ footer { text-align: center; padding: 30px; color: #aaa; background: linear-grad
 
     /* Katta panda tugmasi */
     .panda-large-btn {
-        width: 180px;
-        height: 180px;
-        border-width: 3px;
+        width: 150px;
+        height: 150px;
     }
     .colorful-click-text {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+        margin-top: 15px;
     }
 
     /* Chek (Receipt) Qismi */
-    .printer-slot {
-        width: 90vw;
-    }
-    .slot-opening {
-        width: 85vw;
-    }
-    .receipt-mask {
-        width: 100vw;
-    }
+    .printer-slot { width: 95vw; }
+    .slot-opening { width: 90vw; }
+    .receipt-mask { width: 100vw; }
     .receipt-paper {
-        width: 85vw;
+        width: 90vw;
         padding: 20px 15px;
     }
-    .receipt-amount {
-        font-size: 2rem;
-    }
-    .receipt-item {
-        font-size: 0.75rem;
-    }
+    .receipt-amount { font-size: 1.8rem; }
+    .receipt-item { font-size: 0.8rem; }
     .receipt-buttons button {
-        padding: 8px 15px;
-        font-size: 0.9rem;
+        padding: 10px 15px !important;
+        font-size: 0.9rem !important;
     }
 
     /* Plastik Karta */
     .credit-card {
-        width: 90vw;
-        height: auto;
-        min-height: 200px;
-        padding: 20px;
-        transform: rotateX(10deg) rotateY(5deg);
+        width: 92vw;
+        min-height: 180px;
+        padding: 15px;
     }
     .card-number {
-        font-size: 1.4rem;
-        letter-spacing: 2px;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        margin-top: 20px;
     }
-    .card-name p, .card-valid p {
-        font-size: 0.95rem;
-    }
-    .card-type {
-        font-size: 1rem;
-        top: 20px; right: 20px;
-    }
-    .card-message {
-        font-size: 1.5rem;
-    }
+    .card-name p, .card-valid p { font-size: 0.85rem; }
+    .card-message { font-size: 1.2rem; }
 
     /* Yirtiq xat / Jahl konverti */
     .beautiful-envelope-wrapper {
-        transform: scale(0.85);
-        margin-top: -50px;
+        transform: scale(0.8);
+        margin-top: -30px;
     }
     .beautiful-envelope-wrapper:hover {
-        transform: scale(0.9);
+        transform: scale(0.85);
     }
-    
     .bottom-deletion-warning {
         width: 95vw;
-        padding: 15px 10px;
-        font-size: 0.85rem;
-        bottom: 20px;
+        padding: 15px;
+        font-size: 0.8rem;
     }
     .bottom-deletion-warning span {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 }
-
-/* QO'SHIMCHA TELEFON MOSLASHUVI (XATOLIKLARNI TO'G'RILASH) */
-* {
-    box-sizing: border-box;
-}
-
-@media (max-width: 768px) {
-    .glass-card {
-        min-width: 0 !important;
-        width: 95vw !important;
-        padding: 20px 15px !important;
-        margin: 0 auto !important;
-    }
-
-    h1, .hero-card h1 {
-        font-size: 2.2rem !important;
-    }
-
-    .question-text {
-        font-size: 1.2rem !important;
-    }
-
-    button {
-        padding: 10px 20px !important;
-        font-size: 1rem !important;
-    }
-    
-    .button-group {
-        gap: 10px !important;
-    }
-
-    .big-card {
-        width: 95vw !important;
-        padding: 20px 15px !important;
-    }
-
-    .panda-reaction {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-}
-
