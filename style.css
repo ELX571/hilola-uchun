@@ -880,3 +880,61 @@ footer { text-align: center; padding: 30px; color: #aaa; background: linear-grad
         font-size: 1.1rem;
     }
 }
+
+/* XATNI BOSISH ANIMATSIYASI */
+.envelope-hint {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ff4757;
+    animation: bounceEnvelope 1.5s infinite;
+    z-index: 50;
+    pointer-events: none;
+    text-shadow: 0px 4px 15px rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes bounceEnvelope {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -15px); }
+}
+
+.letter-wrapper:hover .envelope-hint,
+.letter-wrapper.is-open .envelope-hint {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+
+@media (max-width: 768px) {
+    /* Ortiqcha bo'shliqlarni (gap) olib tashlash */
+    .gallery-section, .wishes-section {
+        padding: 40px 10px !important;
+    }
+    
+    .final-surprise-section {
+        padding: 40px 10px !important;
+    }
+
+    .letter-wrapper {
+        min-height: 400px !important;
+        margin-top: 10px !important;
+    }
+    
+    .section-title {
+        margin-bottom: 30px !important;
+        font-size: 2.2rem !important;
+    }
+
+    /* Hintni telefonda moslash */
+    .envelope-hint {
+        top: 20px;
+        font-size: 1.2rem;
+    }
+}
